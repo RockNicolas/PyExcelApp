@@ -1,6 +1,12 @@
 import pandas as pd
+import os
+from dotenv import load_dotenv
 
-arquivo = 'MATSUDA.xlsx'  
+load_dotenv()
+
+arquivo = os.getenv('ARQUIVO_ENTRADA')
+arquivo_saida = os.getenv('ARQUIVO_SAIDA')
+
 df = pd.read_excel(arquivo)
 
 col_concorrentes = ['DOG CHOW', 'PEDIGREE', 'CHAMP', 'KITEKAT', 'PURINA FRISKIES', 'WHISKAS']
@@ -29,5 +35,5 @@ df[['Concorrente Mais Barato', 'Preço Concorrente', 'Diferença R$', 'Diferenç
 colunas_finais = ['Nome do Produto', 'Preço de Venda', 'Concorrente Mais Barato', 'Preço Concorrente', 'Diferença R$', 'Diferença %']
 resultado = df[colunas_finais]
 
-resultado.to_excel('comparativo_concorrencia.xlsx', index=False)
-print("Análise gerada com sucesso em 'comparativo_concorrencia.xlsx'")
+resultado.to_excel(arquivo_saida, index=False)
+print(f"Análise gerada com sucesso em '{arquivo_saida}'")
